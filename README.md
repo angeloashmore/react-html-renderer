@@ -2,8 +2,9 @@
 
 React component that renders an HTML string as a React component tree.
 
-This component uses [`html-react-parser`](html-react-parser) under the hood but
-makes no promises about changing the underlying library in a future release.
+**Note**: This component uses [`html-react-parser`](html-react-parser) under
+the hood but makes no promises about changing the underlying library in a
+future release.
 
 ## Status
 
