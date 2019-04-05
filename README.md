@@ -67,7 +67,7 @@ const App = () => (
 
 ## Props
 
-| Name             | Type                                  | Description                                                                                             |
-| ---------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **`html`**       | `PropTypes.string`                    | HTML to render.                                                                                         |
-| **`components`** | `PropTypes.objectOf.(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.). |
+| Name             | Type                                 | Description                                                                                             |
+| ---------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| **`html`**       | `PropTypes.string`                   | HTML to render.                                                                                         |
+| **`components`** | `PropTypes.objectOf(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.). |
