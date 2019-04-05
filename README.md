@@ -2,7 +2,7 @@
 
 React component that renders an HTML string as a React component tree.
 
-**Note**: This component uses [`html-react-parser`](html-react-parser) under
+**Note**: This component uses [`html-react-parser`][html-react-parser] under
 the hood but makes no promises about changing the underlying library in a
 future release.
 
@@ -71,3 +71,5 @@ const App = () => (
 | ---------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
 | **`html`**       | `PropTypes.string`                   | HTML to render.                                                                                         |
 | **`components`** | `PropTypes.objectOf(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.). |
+
+[html-react-parser]: https://github.com/remarkablemark/html-react-parser
