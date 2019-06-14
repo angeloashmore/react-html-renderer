@@ -2,7 +2,7 @@ import React from 'react'
 import parse from 'html-react-parser'
 import domToReact from 'html-react-parser/lib/dom-to-react'
 
-export const HTMLRenderer = ({ html = '', components = {}, ...props }) => {
+export const HTMLRenderer = ({ html = '', components = {} }) => {
   const parserOptions = {
     replace: ({ name, attribs, children: nodeChildren }) => {
       let children = null
@@ -16,7 +16,5 @@ export const HTMLRenderer = ({ html = '', components = {}, ...props }) => {
     },
   }
 
-  const reactElement = parse(html, parserOptions)
-
-  return React.cloneElement(reactElement, props)
+  return parse(html, parserOptions)
 }
