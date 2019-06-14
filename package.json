@@ -27,24 +27,27 @@
   "author": "Angelo Ashmore <angelo.ashmore@walltowall.com>",
   "license": "MIT",
   "dependencies": {
-    "html-react-parser": "^0.7.0"
+    "html-react-parser": "^0.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@commitlint/cli": "^7.5.2",
-    "@commitlint/config-conventional": "^7.5.0",
+    "react-dom": "^16.8.6",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "@testing-library/react": "^8.0.1",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^24.7.1",
-    "husky": "^1.3.1",
-    "jest": "^24.7.1",
-    "prettier": "^1.16.4",
+    "babel-jest": "^24.8.0",
+    "husky": "^2.4.1",
+    "jest": "^24.8.0",
+    "jest-dom": "^3.5.0",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
-    "react-test-renderer": "^16.8.6",
     "rimraf": "^2.6.3",
-    "rollup": "^1.9.0",
+    "rollup": "^1.15.3",
     "rollup-plugin-babel": "4.3.2",
-    "standard-version": "^5.0.2"
+    "standard-version": "^6.0.1"
   },
   "peerDependencies": {
     "react": "^0.14 || ^15 || ^16"
