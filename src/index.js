@@ -2,11 +2,17 @@ import React from 'react'
 import parse from 'html-react-parser'
 import domToReact from 'html-react-parser/lib/dom-to-react'
 
-export const HTMLRenderer = ({ html = '', components = {} }) => {
+export const HTMLRenderer = ({
+  as = 'div',
+  html = '',
+  components = {},
+  ...props
+}) => {
   const parserOptions = {
     replace: ({ name, attribs, children: nodeChildren }) => {
-      let children = null
-      if (nodeChildren) children = domToReact(nodeChildren, parserOptions)
+      const children = nodeChildren
+        ? domToReact(nodeChildren, parserOptions)
+        : null
 
       const Comp = components[name]
 
@@ -16,5 +22,8 @@ export const HTMLRenderer = ({ html = '', components = {} }) => {
     },
   }
 
-  return parse(html, parserOptions)
+  const htmlChildren = parse(html, parserOptions)
+  console.log(htmlChildren)
+
+  return htmlChildren
 }
