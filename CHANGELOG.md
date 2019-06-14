@@ -1,6 +1,17 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.2.0](https://github.com/angeloashmore/react-html-renderer/compare/v0.1.1...v0.2.0) (2019-06-14)
+
+
+### Features
+
+* spread props over returned element from parser ([e861356](https://github.com/angeloashmore/react-html-renderer/commit/e861356))
+* update deps and tests ([d72019e](https://github.com/angeloashmore/react-html-renderer/commit/d72019e))
+* update deps and tests ([5f7e281](https://github.com/angeloashmore/react-html-renderer/commit/5f7e281))
+
+
 
 ## [0.1.1](https://github.com/angeloashmore/react-html-renderer/compare/v0.1.0...v0.1.1) (2019-04-05)
 
