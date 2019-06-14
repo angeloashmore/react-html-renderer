@@ -26,6 +26,10 @@ test('should render the provided HTML', () => {
   )
 
   expect(getByText('NEW DATA')).toBeInTheDocument()
+  expect(
+    getByText('A JavaScript library for building user interfaces'),
+  ).toBeInTheDocument()
+  expect(getByText('Get Started')).toBeInTheDocument()
   expect(container.firstChild).toMatchInlineSnapshot(`
     <h1>
       NEW DATA
