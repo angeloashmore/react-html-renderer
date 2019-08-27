@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/angeloashmore/react-html-renderer/compare/v0.2.1...v0.3.0) (2019-08-27)
+
+
+### Bug Fixes
+
+* update dependencies ([d7b2066](https://github.com/angeloashmore/react-html-renderer/commit/d7b2066))
+
+
+### Features
+
+* add componentOverrides prop ([63dd781](https://github.com/angeloashmore/react-html-renderer/commit/63dd781))
+* export HTMLRenderer as default ([f224f85](https://github.com/angeloashmore/react-html-renderer/commit/f224f85))
+
 ### [0.2.1](https://github.com/angeloashmore/react-html-renderer/compare/v0.2.0...v0.2.1) (2019-06-14)
 
 
