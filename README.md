@@ -80,16 +80,26 @@ export const HTML = props => (
   <HTMLRenderer
     components={{
       h1: props => <Heading color="red" {...props} />,
-      h2: Subheading,
-      a: Link,
     }}
     {...props}
   />
 )
 ```
 
-When individual components need to be overridden, you can provide a mapping
-using the `componentOverrides` prop.
+The `HTML` component could be used by passing it an HTML string.
+
+```js
+// src/pages/index.js
+
+import { HTML } from 'src/components'
+
+export const IndexPage = ({ html }) => <HTML html={html} />
+```
+
+This will render `H1` elements with **red text**.
+
+If individual components need to be overridden, you can provide a mapping using
+the `componentOverrides` prop.
 
 ```js
 // src/pages/index.js
@@ -106,7 +116,7 @@ export const IndexPage = ({ html }) => (
 )
 ```
 
-This will render `H1` elements with blue text.
+This will render `H1` elements with **blue text**.
 
 Note that `Comp` is the `Heading` component defined in the original `components`
 prop. This allows you to keep the existing component and modify it as needed.
