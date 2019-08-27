@@ -2,14 +2,14 @@
 
 React component that renders an HTML string as a React component tree.
 
-**Note**: This component uses [`html-react-parser`][html-react-parser] under
-the hood but makes no promises about changing the underlying library in a
-future release.
+**Note**: This component uses [`html-react-parser`][html-react-parser] under the
+hood but makes no promises about changing the underlying library in a future
+release.
 
 ## Status
 
-[![npm version](https://badge.fury.io/js/react-html-renderer.svg)](http://badge.fury.io/js/react-html-renderer)
-[![Build Status](https://travis-ci.com/angeloashmore/react-html-renderer.svg?branch=master)](https://travis-ci.com/angeloashmore/react-html-renderer)
+[![npm version](https://flat.badgen.net/npm/v/react-html-renderer)](https://www.npmjs.com/package/react-html-renderer)
+[![Build Status](https://flat.badgen.net/travis/angeloashmore/react-html-renderer)](https://travis-ci.com/angeloashmore/react-html-renderer)
 
 ## Install
 
@@ -21,7 +21,7 @@ npm install --save react-html-renderer
 
 ```jsx
 import React from 'react'
-import { HTMLRenderer } from 'react-html-renderer'
+import HTMLRenderer from 'react-html-renderer'
 
 // Components to which elements are mapped
 import Heading from './Heading'
@@ -65,11 +65,65 @@ const App = () => (
 ]
 ```
 
+## Component overrides
+
+`HTMLRenderer` supports overriding components provided in the `components` prop
+as needed. This can be utilized to create a reusable `HTMLRenderer` with a
+default set of components throughout your project.
+
+```jsx
+// src/components/HTML.js
+
+import { Heading, Subheading, Link } from 'src/components'
+
+export const HTML = props => (
+  <HTMLRenderer
+    components={{
+      h1: props => <Heading color="red" {...props} />,
+      h2: Subheading,
+      a: Link,
+    }}
+    {...props}
+  />
+)
+```
+
+When individual components need to be overridden, you can provide a mapping
+using the `componentOverrides` prop.
+
+```js
+// src/pages/index.js
+
+import { HTML } from 'src/components'
+
+export const IndexPage = ({ html }) => (
+  <HTML
+    html={html}
+    componentOverrides={{
+      h1: Comp => props => <Comp {...props} color="blue" />,
+    }}
+  />
+)
+```
+
+This will render `H1` elements with blue text.
+
+Note that `Comp` is the `Heading` component defined in the original `components`
+prop. This allows you to keep the existing component and modify it as needed.
+Alternatively, you could disregard `Comp` and return a completely different
+component.
+
+## Markdown
+
+See [markdown-react-renderer](markdown-react-renderer)
+
 ## Props
 
-| Name             | Type                                 | Description                                                                                             |
-| ---------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| **`html`**       | `PropTypes.string`                   | HTML to render.                                                                                         |
-| **`components`** | `PropTypes.objectOf(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.). |
+| Name                     | Type                                 | Description                                                                                                                                                    |
+| ------------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`html`**               | `PropTypes.string`                   | HTML to render.                                                                                                                                                |
+| **`components`**         | `PropTypes.objectOf(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.).                                                        |
+| **`componentOverrides`** | `PropTypes.objectOf(PropTypes.func)` | An object mapping an HTML element type to a function that returns another React can render. See [Making HTMLRenderer reusable](#making-htmlrenderer-reusable). |
 
 [html-react-parser]: https://github.com/remarkablemark/html-react-parser
+[markdown-react-renderer]: https://github.com/asyarb/markdown-react-renderer
