@@ -9,6 +9,10 @@ const components = {
   h1: props => <h1 data-replaced={true} {...props} />,
 }
 
+const componentOverrides = {
+  h1: Comp => props => <Comp data-overridden={true} {...props} />,
+}
+
 test('should render the provided HTML', () => {
   let tree
   act(() => {
@@ -44,6 +48,40 @@ test('should replace HTML elements using the components map', () => {
     {
       type: 'h1',
       props: { 'data-replaced': true, name: 'h1' },
+      children: ['React'],
+    },
+    {
+      type: 'h2',
+      props: {},
+      children: ['A JavaScript library for building user interfaces'],
+    },
+    {
+      type: 'p',
+      props: {},
+      children: [
+        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
+      ],
+    },
+  ])
+})
+
+test('should allow component overrides', () => {
+  let tree
+  act(() => {
+    tree = renderer.create(
+      <HTMLRenderer
+        html={html}
+        components={components}
+        componentOverrides={componentOverrides}
+      />,
+    )
+  })
+  const json = tree.toJSON()
+
+  expect(json).toEqual([
+    {
+      type: 'h1',
+      props: { 'data-replaced': true, 'data-overridden': true, name: 'h1' },
       children: ['React'],
     },
     {
