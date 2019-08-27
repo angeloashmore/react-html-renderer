@@ -3,14 +3,14 @@ import renderer, { act } from 'react-test-renderer'
 
 import { HTMLRenderer } from '.'
 
-const html = `<h1>React</h1><h2>A JavaScript library for building user interfaces</h2><p><a href="#">Get Started</a></p>`
+const html = `<h1 data-foo="bar">React</h1><h2>A JavaScript library for building user interfaces</h2><p><a href="#">Get Started</a></p>`
 
 const components = {
-  h1: props => <marquee data-replaced={true} {...props} />,
+  h1: props => <marquee {...props} data-foo="baz" />,
 }
 
 const componentOverrides = {
-  h1: Comp => props => <Comp data-overridden={true} {...props} />,
+  h1: Comp => props => <Comp {...props} data-foo="qux" />,
 }
 
 test('renders the provided HTML', () => {
@@ -22,7 +22,9 @@ test('renders the provided HTML', () => {
 
   expect(json).toMatchInlineSnapshot(`
     Array [
-      <h1>
+      <h1
+        data-foo="bar"
+      >
         React
       </h1>,
       <h2>
@@ -49,7 +51,7 @@ test('replaces HTML elements using the components map', () => {
   expect(json).toMatchInlineSnapshot(`
     Array [
       <marquee
-        data-replaced={true}
+        data-foo="baz"
         name="h1"
       >
         React
@@ -84,8 +86,7 @@ test('allows component overrides', () => {
   expect(json).toMatchInlineSnapshot(`
     Array [
       <marquee
-        data-overridden={true}
-        data-replaced={true}
+        data-foo="baz"
         name="h1"
       >
         React
@@ -116,7 +117,7 @@ test('uses standard HTML element if override does not have a matching component'
   expect(json).toMatchInlineSnapshot(`
     Array [
       <h1
-        data-overridden={true}
+        data-foo="qux"
         name="h1"
       >
         React
