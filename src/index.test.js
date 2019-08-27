@@ -6,66 +6,69 @@ import { HTMLRenderer } from '.'
 const html = `<h1>React</h1><h2>A JavaScript library for building user interfaces</h2><p><a href="#">Get Started</a></p>`
 
 const components = {
-  h1: props => <h1 data-replaced={true} {...props} />,
+  h1: props => <marquee data-replaced={true} {...props} />,
 }
 
 const componentOverrides = {
   h1: Comp => props => <Comp data-overridden={true} {...props} />,
 }
 
-test('should render the provided HTML', () => {
+test('renders the provided HTML', () => {
   let tree
   act(() => {
     tree = renderer.create(<HTMLRenderer html={html} />)
   })
   const json = tree.toJSON()
 
-  expect(json).toEqual([
-    { type: 'h1', props: {}, children: ['React'] },
-    {
-      type: 'h2',
-      props: {},
-      children: ['A JavaScript library for building user interfaces'],
-    },
-    {
-      type: 'p',
-      props: {},
-      children: [
-        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
-      ],
-    },
-  ])
+  expect(json).toMatchInlineSnapshot(`
+    Array [
+      <h1>
+        React
+      </h1>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+    ]
+  `)
 })
 
-test('should replace HTML elements using the components map', () => {
+test('replaces HTML elements using the components map', () => {
   let tree
   act(() => {
     tree = renderer.create(<HTMLRenderer html={html} components={components} />)
   })
   const json = tree.toJSON()
 
-  expect(json).toEqual([
-    {
-      type: 'h1',
-      props: { 'data-replaced': true, name: 'h1' },
-      children: ['React'],
-    },
-    {
-      type: 'h2',
-      props: {},
-      children: ['A JavaScript library for building user interfaces'],
-    },
-    {
-      type: 'p',
-      props: {},
-      children: [
-        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
-      ],
-    },
-  ])
+  expect(json).toMatchInlineSnapshot(`
+    Array [
+      <marquee
+        data-replaced={true}
+        name="h1"
+      >
+        React
+      </marquee>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+    ]
+  `)
 })
 
-test('should allow component overrides', () => {
+test('allows component overrides', () => {
   let tree
   act(() => {
     tree = renderer.create(
@@ -78,23 +81,56 @@ test('should allow component overrides', () => {
   })
   const json = tree.toJSON()
 
-  expect(json).toEqual([
-    {
-      type: 'h1',
-      props: { 'data-replaced': true, 'data-overridden': true, name: 'h1' },
-      children: ['React'],
-    },
-    {
-      type: 'h2',
-      props: {},
-      children: ['A JavaScript library for building user interfaces'],
-    },
-    {
-      type: 'p',
-      props: {},
-      children: [
-        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
-      ],
-    },
-  ])
+  expect(json).toMatchInlineSnapshot(`
+    Array [
+      <marquee
+        data-overridden={true}
+        data-replaced={true}
+        name="h1"
+      >
+        React
+      </marquee>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+    ]
+  `)
+})
+
+test('uses standard HTML element if override does not have a matching component', () => {
+  let tree
+  act(() => {
+    tree = renderer.create(
+      <HTMLRenderer html={html} componentOverrides={componentOverrides} />,
+    )
+  })
+  const json = tree.toJSON()
+
+  expect(json).toMatchInlineSnapshot(`
+    Array [
+      <h1
+        data-overridden={true}
+        name="h1"
+      >
+        React
+      </h1>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+    ]
+  `)
 })
