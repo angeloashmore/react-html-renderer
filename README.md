@@ -123,10 +123,6 @@ prop. This allows you to keep the existing component and modify it as needed.
 Alternatively, you could disregard `Comp` and return a completely different
 component.
 
-## Markdown
-
-See [markdown-react-renderer](markdown-react-renderer)
-
 ## Props
 
 | Name                     | Type                                 | Description                                                                                                                                                    |
@@ -134,6 +130,10 @@ See [markdown-react-renderer](markdown-react-renderer)
 | **`html`**               | `PropTypes.string`                   | HTML to render.                                                                                                                                                |
 | **`components`**         | `PropTypes.objectOf(PropTypes.node)` | An object mapping an HTML element type to anything React can render (numbers, strings, elements, etc.).                                                        |
 | **`componentOverrides`** | `PropTypes.objectOf(PropTypes.func)` | An object mapping an HTML element type to a function that returns another React can render. See [Making HTMLRenderer reusable](#making-htmlrenderer-reusable). |
+
+## Similar packages
+
+- [markdown-react-renderer](markdown-react-renderer)
 
 [html-react-parser]: https://github.com/remarkablemark/html-react-parser
 [markdown-react-renderer]: https://github.com/asyarb/markdown-react-renderer
