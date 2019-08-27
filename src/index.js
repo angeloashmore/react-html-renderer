@@ -34,3 +34,5 @@ export const HTMLRenderer = ({
 
   return parse(html, parserOptions)
 }
+
+export default HTMLRenderer
