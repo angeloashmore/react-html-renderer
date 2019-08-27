@@ -133,7 +133,7 @@ component.
 
 ## Similar packages
 
-- [markdown-react-renderer](markdown-react-renderer)
+- [markdown-react-renderer][markdown-react-renderer]
 
 [html-react-parser]: https://github.com/remarkablemark/html-react-parser
 [markdown-react-renderer]: https://github.com/asyarb/markdown-react-renderer
