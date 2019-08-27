@@ -1,73 +1,62 @@
 import React from 'react'
-import { render, cleanup } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import renderer, { act } from 'react-test-renderer'
 
 import { HTMLRenderer } from '.'
 
 const html = `<h1>React</h1><h2>A JavaScript library for building user interfaces</h2><p><a href="#">Get Started</a></p>`
 
-const Heading = ({ replacedData, ...props }) => (
-  <h1 {...props}>{replacedData}</h1>
-)
-const Subheading = ({ replacedData }) => <h2>{replacedData}</h2>
-const Text = ({ children }) => <p>{children}</p>
-const Link = ({ replacedData, href }) => <a href={href}>{replacedData}</a>
-
-afterEach(cleanup)
+const components = {
+  h1: props => <h1 data-replaced={true} {...props} />,
+}
 
 test('should render the provided HTML', () => {
-  const { container, getByText } = render(
-    <HTMLRenderer
-      html={html}
-      components={{
-        h1: () => <Heading replacedData="NEW DATA" />,
-      }}
-    />,
-  )
+  let tree
+  act(() => {
+    tree = renderer.create(<HTMLRenderer html={html} />)
+  })
+  const json = tree.toJSON()
 
-  expect(getByText('NEW DATA')).toBeInTheDocument()
-  expect(
-    getByText('A JavaScript library for building user interfaces'),
-  ).toBeInTheDocument()
-  expect(getByText('Get Started')).toBeInTheDocument()
-  expect(container.querySelector('h1')).toMatchInlineSnapshot(`
-    <h1>
-      NEW DATA
-    </h1>
-  `)
+  expect(json).toEqual([
+    { type: 'h1', props: {}, children: ['React'] },
+    {
+      type: 'h2',
+      props: {},
+      children: ['A JavaScript library for building user interfaces'],
+    },
+    {
+      type: 'p',
+      props: {},
+      children: [
+        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
+      ],
+    },
+  ])
 })
 
 test('should replace HTML elements using the components map', () => {
-  const { container, getByText } = render(
-    <HTMLRenderer
-      html={html}
-      components={{
-        h1: props => <Heading replacedData="HEADING" />,
-        h2: props => <Subheading replacedData="SUBHEADING" />,
-        p: props => <Text {...props} />,
-        a: props => <Link {...props} replacedData="LINK" />,
-      }}
-    />,
-  )
+  let tree
+  act(() => {
+    tree = renderer.create(<HTMLRenderer html={html} components={components} />)
+  })
+  const json = tree.toJSON()
 
-  expect(getByText('HEADING')).toBeInTheDocument()
-  expect(getByText('SUBHEADING')).toBeInTheDocument()
-  expect(getByText('LINK')).toBeInTheDocument()
-  expect(container).toMatchInlineSnapshot(`
-    <div>
-      <h1>
-        HEADING
-      </h1>
-      <h2>
-        SUBHEADING
-      </h2>
-      <p>
-        <a
-          href="#"
-        >
-          LINK
-        </a>
-      </p>
-    </div>
-  `)
+  expect(json).toEqual([
+    {
+      type: 'h1',
+      props: { 'data-replaced': true, name: 'h1' },
+      children: ['React'],
+    },
+    {
+      type: 'h2',
+      props: {},
+      children: ['A JavaScript library for building user interfaces'],
+    },
+    {
+      type: 'p',
+      props: {},
+      children: [
+        { type: 'a', props: { href: '#' }, children: ['Get Started'] },
+      ],
+    },
+  ])
 })
