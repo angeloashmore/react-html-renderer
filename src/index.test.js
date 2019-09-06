@@ -135,3 +135,66 @@ test('uses standard HTML element if override does not have a matching component'
     ]
   `)
 })
+
+test('overrides do not affect other HTMLRenderers', () => {
+  let tree
+  act(() => {
+    tree = renderer.create(
+      <>
+        <HTMLRenderer
+          html={html}
+          components={components}
+          componentOverrides={{
+            h1: Comp => props => <Comp data-bar="baz" {...props} />,
+          }}
+        />
+        ,
+        <HTMLRenderer
+          html={html}
+          components={components}
+          componentOverrides={componentOverrides}
+        />
+      </>,
+    )
+  })
+  const json = tree.toJSON()
+
+  expect(json).toMatchInlineSnapshot(`
+    Array [
+      <marquee
+        data-bar="baz"
+        data-foo="baz"
+        name="h1"
+      >
+        React
+      </marquee>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+      ",",
+      <marquee
+        data-foo="baz"
+        name="h1"
+      >
+        React
+      </marquee>,
+      <h2>
+        A JavaScript library for building user interfaces
+      </h2>,
+      <p>
+        <a
+          href="#"
+        >
+          Get Started
+        </a>
+      </p>,
+    ]
+  `)
+})

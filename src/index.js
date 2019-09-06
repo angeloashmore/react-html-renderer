@@ -15,7 +15,7 @@ export const HTMLRenderer = ({
 
       return acc
     },
-    components,
+    { ...components },
   )
 
   const parserOptions = {
