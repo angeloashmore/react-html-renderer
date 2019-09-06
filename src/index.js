@@ -2,7 +2,7 @@ import React from 'react'
 import parse from 'html-react-parser'
 import domToReact from 'html-react-parser/lib/dom-to-react'
 
-export const HTMLRenderer = ({
+const HTMLRenderer = ({
   html = '',
   components = {},
   componentOverrides = {},
