@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/angeloashmore/react-html-renderer/compare/v0.3.2...v0.3.3) (2021-10-25)
+
+
+### Bug Fixes
+
+* add support for react 17 peer dependency ([#21](https://github.com/angeloashmore/react-html-renderer/issues/21)) ([f90093e](https://github.com/angeloashmore/react-html-renderer/commit/f90093e))
+
 ### [0.3.2](https://github.com/angeloashmore/react-html-renderer/compare/v0.3.1...v0.3.2) (2019-09-06)
 
 
