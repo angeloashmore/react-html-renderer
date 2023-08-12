@@ -9,7 +9,8 @@ const HTMLRenderer = ({
 }) => {
   const resolvedComponents = Object.keys(componentOverrides).reduce(
     (acc, key) => {
-      const Comp = components[key] || (props => React.createElement(key, props))
+      const Comp =
+        components[key] || ((props) => React.createElement(key, props))
 
       acc[key] = componentOverrides[key](Comp)
 

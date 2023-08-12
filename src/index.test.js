@@ -1,16 +1,16 @@
 import React from 'react'
 import renderer, { act } from 'react-test-renderer'
 
-import { HTMLRenderer } from '.'
+import HTMLRenderer from '.'
 
 const html = `<h1 data-foo="bar">React</h1><h2>A JavaScript library for building user interfaces</h2><p><a href="#">Get Started</a></p>`
 
 const components = {
-  h1: props => <marquee {...props} data-foo="baz" />,
+  h1: (props) => <marquee {...props} data-foo="baz" />,
 }
 
 const componentOverrides = {
-  h1: Comp => props => <Comp {...props} data-foo="qux" />,
+  h1: (Comp) => (props) => <Comp {...props} data-foo="qux" />,
 }
 
 test('renders the provided HTML', () => {
@@ -21,24 +21,24 @@ test('renders the provided HTML', () => {
   const json = tree.toJSON()
 
   expect(json).toMatchInlineSnapshot(`
-    Array [
-      <h1
-        data-foo="bar"
-      >
-        React
-      </h1>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-    ]
-  `)
+[
+  <h1
+    data-foo="bar"
+  >
+    React
+  </h1>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+]
+`)
 })
 
 test('replaces HTML elements using the components map', () => {
@@ -49,25 +49,25 @@ test('replaces HTML elements using the components map', () => {
   const json = tree.toJSON()
 
   expect(json).toMatchInlineSnapshot(`
-    Array [
-      <marquee
-        data-foo="baz"
-        name="h1"
-      >
-        React
-      </marquee>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-    ]
-  `)
+[
+  <marquee
+    data-foo="baz"
+    name="h1"
+  >
+    React
+  </marquee>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+]
+`)
 })
 
 test('allows component overrides', () => {
@@ -84,25 +84,25 @@ test('allows component overrides', () => {
   const json = tree.toJSON()
 
   expect(json).toMatchInlineSnapshot(`
-    Array [
-      <marquee
-        data-foo="baz"
-        name="h1"
-      >
-        React
-      </marquee>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-    ]
-  `)
+[
+  <marquee
+    data-foo="baz"
+    name="h1"
+  >
+    React
+  </marquee>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+]
+`)
 })
 
 test('uses standard HTML element if override does not have a matching component', () => {
@@ -115,25 +115,25 @@ test('uses standard HTML element if override does not have a matching component'
   const json = tree.toJSON()
 
   expect(json).toMatchInlineSnapshot(`
-    Array [
-      <h1
-        data-foo="qux"
-        name="h1"
-      >
-        React
-      </h1>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-    ]
-  `)
+[
+  <h1
+    data-foo="qux"
+    name="h1"
+  >
+    React
+  </h1>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+]
+`)
 })
 
 test('overrides do not affect other HTMLRenderers', () => {
@@ -145,7 +145,7 @@ test('overrides do not affect other HTMLRenderers', () => {
           html={html}
           components={components}
           componentOverrides={{
-            h1: Comp => props => <Comp data-bar="baz" {...props} />,
+            h1: (Comp) => (props) => <Comp data-bar="baz" {...props} />,
           }}
         />
         ,
@@ -160,41 +160,41 @@ test('overrides do not affect other HTMLRenderers', () => {
   const json = tree.toJSON()
 
   expect(json).toMatchInlineSnapshot(`
-    Array [
-      <marquee
-        data-bar="baz"
-        data-foo="baz"
-        name="h1"
-      >
-        React
-      </marquee>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-      ",",
-      <marquee
-        data-foo="baz"
-        name="h1"
-      >
-        React
-      </marquee>,
-      <h2>
-        A JavaScript library for building user interfaces
-      </h2>,
-      <p>
-        <a
-          href="#"
-        >
-          Get Started
-        </a>
-      </p>,
-    ]
-  `)
+[
+  <marquee
+    data-bar="baz"
+    data-foo="baz"
+    name="h1"
+  >
+    React
+  </marquee>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+  ",",
+  <marquee
+    data-foo="baz"
+    name="h1"
+  >
+    React
+  </marquee>,
+  <h2>
+    A JavaScript library for building user interfaces
+  </h2>,
+  <p>
+    <a
+      href="#"
+    >
+      Get Started
+    </a>
+  </p>,
+]
+`)
 })
