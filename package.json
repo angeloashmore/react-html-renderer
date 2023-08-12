@@ -8,7 +8,7 @@
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "build:watch": "npm run build -- --watch",
-    "format": "prettier --write 'src/**/*.js' 'rollup.config.js' 'README.md'",
+    "format": "prettier --write 'src/**/*.js' 'rollup.config.mjs' 'README.md'",
     "prebuild": "rimraf dist",
     "prepublish": "npm run build",
     "release": "standard-version",

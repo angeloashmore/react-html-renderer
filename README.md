@@ -45,7 +45,7 @@ const App = () => (
   <HTMLRenderer
     html={html}
     components={{
-      h1: props => <Heading color="red" {...props} />,
+      h1: (props) => <Heading color="red" {...props} />,
       h2: Subheading,
       a: Link,
     }}
@@ -76,10 +76,10 @@ default set of components throughout your project.
 
 import { Heading, Subheading, Link } from 'src/components'
 
-export const HTML = props => (
+export const HTML = (props) => (
   <HTMLRenderer
     components={{
-      h1: props => <Heading color="red" {...props} />,
+      h1: (props) => <Heading color="red" {...props} />,
     }}
     {...props}
   />
@@ -110,7 +110,7 @@ export const IndexPage = ({ html }) => (
   <HTML
     html={html}
     componentOverrides={{
-      h1: Comp => props => <Comp {...props} color="blue" />,
+      h1: (Comp) => (props) => <Comp {...props} color="blue" />,
     }}
   />
 )
